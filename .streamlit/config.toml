@@ -3,9 +3,3 @@
 # Polling is more resource-efficient for large repositories with many files
 # This prevents "inotify instance limit reached" errors on Streamlit Cloud
 fileWatcherType = "poll"
-
-[server.fileWatcher]
-# Polling interval in seconds
-# Higher values = less frequent checks = less resource usage
-# Lower values = more responsive to changes
-pollingIntervalSeconds = 5

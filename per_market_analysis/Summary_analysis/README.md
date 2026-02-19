@@ -145,3 +145,58 @@ Outputs are written to:
 | Prediction non-cumulative| Last Polymarket price for Democrat outcome in each period |
 
 All four are plotted on the same period index (from donation cumulative) and the same 0–1 y-axis.
+
+---
+
+## Weekly summary CSVs
+
+Two CSV files are built from the same data used for the summary graphs (weekly frequency only). They give one row per **(election name, week)** for use in regressions or other analysis.
+
+### 1. `output/summary_odds_weekly.csv`
+
+| Column | Description |
+|--------|-------------|
+| **election_name** | Event slug (e.g. `arizona-us-senate-election-winner`). Part of primary key. |
+| **week** | Period label (e.g. `2024-W14`). Part of primary key. |
+| **winning_side_dem** | 1 = Democrat won, 0 = Republican won. Inferred from Polymarket resolution (first “Will a Democrat win?” market `outcomePrices`). Empty if not resolved or not found. |
+| **cumulative_prediction_odds** | Prediction cumulative (all users) for that week — same source as the red line in summary_weekly. Can be updated separately when better trade data is available (see below). |
+| **non_cumulative_prediction_odds** | Polymarket price for Democrat outcome at end of that week (last price in week). |
+| **cumulative_donation_odds** | Donation cumulative Dem_Ratio (All) for that week. |
+| **non_cumulative_donation_odds** | Donation non-cumulative Dem_Ratio (All) for that week. |
+
+All “odds” columns are on a 0–1 scale (Dem share or probability).
+
+### 2. `output/summary_segment_odds_weekly.csv`
+
+Same primary key **(election_name, week)**. Additional columns are donation odds by donor segment (Small / Medium / Large, based on cumulative donation amount percentiles):
+
+- **cumulative_donation_odds_small**, **cumulative_donation_odds_medium**, **cumulative_donation_odds_large**
+- **non_cumulative_donation_odds_small**, **non_cumulative_donation_odds_medium**, **non_cumulative_donation_odds_large**
+
+Data come from `output/weekly_cumulative_aggregations.csv` and `non_cumulative_donations/output/weekly_non_cumulative_aggregations.csv` (Segment = Small/Medium/Large).
+
+### How the CSVs are created
+
+1. **Prerequisites:** Same as for summary graphs (donation cumulative and non-cumulative outputs, optional trades_Plot data, Polymarket prices, event slugs in `event_slugs.json` or `event_slugs.txt`).
+
+2. **Build both CSVs** (from repo root):
+
+   ```bash
+   python -m per_market_analysis.Summary_analysis.build_summary_csvs
+   ```
+
+   This writes `Summary_analysis/output/summary_odds_weekly.csv` and `Summary_analysis/output/summary_segment_odds_weekly.csv`. Slugs are read from `per_market_analysis/event_slugs.json` (or `event_slugs.txt`). Any slug with missing data is skipped for that file (e.g. no donation cumulative → no row for that election).
+
+### Updating cumulative prediction odds
+
+When better or updated **trade data** is available (e.g. new or corrected `trades_Plot/{slug}/*_all_users_segment.csv` from User-analysis), you can refresh only the **cumulative_prediction_odds** column in `summary_odds_weekly.csv` without regenerating donation or Polymarket columns:
+
+```bash
+python -m per_market_analysis.Summary_analysis.update_cumulative_prediction_odds
+```
+
+- Reads `Summary_analysis/output/summary_odds_weekly.csv`.
+- Recomputes cumulative prediction odds per (election_name, week) from the current `trades_Plot` data (same logic as the summary plots).
+- Overwrites `summary_odds_weekly.csv` with the same rows and columns, only **cumulative_prediction_odds** updated.
+
+Run this after (re)running User-analysis so that `trades_Plot` contains the new trade data. Other columns (donation odds, non-cumulative prediction odds, winning_side_dem) are unchanged.

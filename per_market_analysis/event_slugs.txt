@@ -1,0 +1,3 @@
+# One Polymarket event slug per line. Lines starting with # are ignored.
+# Example: presidential-election-winner-2024
+presidential-election-winner-2024

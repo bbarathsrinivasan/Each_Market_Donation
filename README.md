@@ -14,15 +14,11 @@ Final Project: Implementation + conference-style paper + design review ✍️�
 ---
 
 ## 👥 Team Members
-
-<div align="center">
-
 - **Adarash** 
 - **Barath** 
 - **Smirti** 
 - **Pranav**
 
-</div>
 
 ---
 

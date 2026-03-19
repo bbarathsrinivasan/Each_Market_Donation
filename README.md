@@ -24,7 +24,7 @@ Final Project: Implementation + conference-style paper + design review ✍️�
 
 ## 🎯 Project Proposal (What we will build)
 
-<div align="center">
+<div>
 
 ### 📌 One-line idea
 **We will build an interactive system that compares donor sentiment extracted from donation data (cumulative + non-cumulative, segmented by donor strength) against prediction-market signals extracted from trades (cumulative prediction odds) and Polymarket price movements.**
@@ -35,7 +35,7 @@ Final Project: Implementation + conference-style paper + design review ✍️�
 
 ## 🧩 Data Science Problem
 
-<div align="center">
+<div>
 
 Elections are influenced by both **who donates** and **what markets believe**. While donation data can reflect supporter sentiment, its effect is indirect and timing-dependent. Prediction markets aggregate beliefs—but they can be noisy or biased.
 
@@ -48,7 +48,7 @@ Elections are influenced by both **who donates** and **what markets believe**. W
 
 ## 📚 Main Dataset (Primary Source)
 
-<div align="center">
+<div>
 
 We will use the dataset produced by the **`per_market_analysis` pipeline** in this repository. It contains per-election/event time series derived from donations and prediction markets:
 
@@ -71,7 +71,7 @@ We will use the dataset produced by the **`per_market_analysis` pipeline** in th
 
 ## ➕ At Least One Additional Data Source (Augmentation)
 
-<div align="center">
+<div>
 
 We will augment with **external time-indexed election/political context** to reduce overfitting and help interpret whether improvements reflect real signal rather than spurious correlation.
 
@@ -89,7 +89,7 @@ We will augment with **external time-indexed election/political context** to red
 
 ## 💡 Proposed Novel Solution
 
-<div align="center">
+<div>
 
 ### 🧠 “Signal Convergence Dashboard” (Interactive Evidence Workflow)
 We propose an interactive, evidence-based workflow that:
@@ -110,7 +110,7 @@ We propose an interactive, evidence-based workflow that:
 
 ## 🛠️ Methodology (How we will solve it)
 
-<div align="center">
+<div>
 
 ### 1) Feature construction 📊
 From the pipeline outputs, we will derive aligned time-series features per event:
@@ -145,7 +145,7 @@ The dashboard emphasizes interpretability:
 
 ## ✅ Evaluation Plan (How we’ll know it works)
 
-<div align="center">
+<div>
 
 We will evaluate success using:
 
@@ -164,7 +164,7 @@ We will evaluate success using:
 
 ## 🎨 Why this is creative / novel
 
-<div align="center">
+<div>
 
 This project combines:
 
@@ -179,7 +179,7 @@ This project combines:
 
 ## 📅 Timeline (High-level)
 
-<div align="center">
+<div>
 
 - **Week 1–2:** finalize dataset alignment + augmentation plan
 - **Week 2–3:** implement features and time-series evaluation metrics
@@ -193,7 +193,7 @@ This project combines:
 
 ## 🚀 Implementation Deliverable (What we will ship)
 
-<div align="center">
+<div>
 
 - Streamlit interactive dashboard supporting:
   - cumulative donation segments
@@ -211,7 +211,7 @@ This project combines:
 
 ## ▶️ How to Run the Dashboard (Local)
 
-<div align="center">
+<div>
 
 streamlit run per_market_analysis/UI/app.py
 
